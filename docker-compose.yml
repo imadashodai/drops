@@ -1,0 +1,23 @@
+version: '2'
+services:
+  db:
+    image: mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=appuser
+      - MYSQL_DATABASE=drops
+      - MYSQL_USER=drops
+      - MYSQL_PASSWORD=appuser
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+
+  app:
+    build: .
+    working_dir: /drops
+    command: bundle exec rails s -b '0.0.0.0'
+    environment:
+      RAILS_ENV: development
+    volumes:
+      - .:/drops
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
