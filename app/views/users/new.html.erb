@@ -1,0 +1,10 @@
+<h1>User New</h1>
+<div>
+  <%= form_for @user do |f| %>
+    名前:<%= f.text_field :name %>
+    アカウント名:<%= f.text_field :account_name %>
+    パスワード<%= f.password_field :password %>
+    パスワード(再入力)<%= f.password_field :password_confirmation %>
+    <%= f.submit '登録する' %>
+  <% end %>
+</div>
