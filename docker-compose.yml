@@ -2,6 +2,7 @@ version: '2'
 services:
   db:
     image: mysql
+    command: mysqld --character-set-server=utf8 --skip-character-set-client-handshake
     environment:
       - MYSQL_ROOT_PASSWORD=appuser
       - MYSQL_DATABASE=drops

@@ -1,0 +1,13 @@
+<div>
+  <%= form_for @content do |f| %>
+    タイトル:<%= f.text_field :title %>
+    本文:<%= f.text_area :body %>
+    状態:<%= f.select :is_active, [1, 0] %>
+    公開日:<%= f.time_field :opened_at %>
+    <% if controller.action_name == 'edit' %>
+      <%= f.submit '更新する' %>
+    <% else %>
+      <%= f.submit '登録する' %>
+    <% end %>
+  <% end %>
+</div>
