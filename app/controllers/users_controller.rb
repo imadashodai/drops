@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
+  include SessionsHelper
   before_action :set_user, only: [:edit, :update, :destroy]
+  before_action :login_check
 
   def index
     @users = User.all
