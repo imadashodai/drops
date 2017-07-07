@@ -4,6 +4,7 @@
     本文:<%= f.text_area :body %>
     状態:<%= f.select :is_active, [1, 0] %>
     公開日:<%= f.time_field :opened_at %>
+    カテゴリー:<%= f.select :category_id, @categories %>
     <% if controller.action_name == 'edit' %>
       <%= f.submit '更新する' %>
     <% else %>
