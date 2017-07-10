@@ -13,17 +13,21 @@ class ContentsController < ApplicationController
 
   def new
     @content = Content.new
-    @categories = Category.all
+    @categories = Category.where(is_active: 1)
   end
 
   def create
-    @content = Content.new(content_params)
+    @content = Content.new
+    @content.title = params[:title]
+    @content.body = params[:body]
+    @content.is_active = params[:is_active]
+    @content.opened_at = params[:opened_at]
     if @content.save
       # カテゴリーが設定されていたら関連のテーブルを作成する
-      if category_params
-        ContentCategory.create(content_params)
+      content_category = ContentCategory.new(content_id: @content.id, category_id: params[:category_id])
+      if content_category.save
+        redirect_to action: :index
       end
-      redirect_to action: :index
     end
   end
 
@@ -40,11 +44,7 @@ class ContentsController < ApplicationController
 
   private
   def content_params
-    params.require(:content).permit(:title, :body, :is_active, :opened_at)
-  end
-
-  def category_params
-    params.require(:content).permit(:category_id)
+   params.require(:content).permit(:title, :body, :is_active, :opened_at, :category_id)
   end
 
   def set_content

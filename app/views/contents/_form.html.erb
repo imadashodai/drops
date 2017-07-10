@@ -1,14 +1,14 @@
 <div>
-  <%= form_for @content do |f| %>
-    タイトル:<%= f.text_field :title %>
-    本文:<%= f.text_area :body %>
-    状態:<%= f.select :is_active, [1, 0] %>
-    公開日:<%= f.time_field :opened_at %>
-    カテゴリー:<%= f.select :category_id, @categories %>
+  <%= form_tag('/contents', method: :post) do %>
+    タイトル:<%= text_field_tag :title %>
+    本文:<%= text_area_tag :body %>
+    状態:<%= select_tag :is_active, options_for_select(['有効', 1], ['無効', 2 ]) %>
+    公開日:<%= time_field_tag :opened_at %>
+    カテゴリー:<%= select_tag :category_id, options_for_select(@categories.map{|c| [c.name, c.id]}) %>
     <% if controller.action_name == 'edit' %>
-      <%= f.submit '更新する' %>
+      <%= submit_tag '更新する' %>
     <% else %>
-      <%= f.submit '登録する' %>
+      <%= submit_tag '登録する' %>
     <% end %>
   <% end %>
 </div>
